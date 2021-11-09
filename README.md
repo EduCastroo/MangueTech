@@ -1,2 +1,0 @@
-# MangueTech
-Projeto Integrador Generation
