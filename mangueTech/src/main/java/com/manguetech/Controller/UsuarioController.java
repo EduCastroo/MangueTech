@@ -1,6 +1,7 @@
 package com.manguetech.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -37,8 +38,13 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/email/{email}")
-	public ResponseEntity<List<Usuario>> GetByTitulo(@PathVariable String email) {
-		return ResponseEntity.ok(repository.findAllByEmailContainingIgnoreCase(email));
+	public ResponseEntity<Optional<Usuario>> GetByEmail(@PathVariable String email) {
+		return ResponseEntity.ok(repository.findByEmail(email));
+	}
+	
+	@GetMapping("/nome/{nome}")
+	public ResponseEntity<List<Usuario>> GetByNome(@PathVariable String nome) {
+		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
 	}
 
 	@PostMapping
