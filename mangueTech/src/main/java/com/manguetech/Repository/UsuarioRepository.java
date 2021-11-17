@@ -13,8 +13,10 @@ import com.manguetech.model.Usuario;
 		public List<Usuario> findAllByNomeContainingIgnoreCase(String nome);
 		
 		public Optional<Usuario> findByEmail(String email);
+		
 
 	
 	}
 
 
+	
