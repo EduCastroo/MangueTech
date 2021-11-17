@@ -75,4 +75,8 @@ public class Usuario {
 		this.minhasPostagens = minhasPostagens;
 	}
 
+	
+
+	
+
 }
