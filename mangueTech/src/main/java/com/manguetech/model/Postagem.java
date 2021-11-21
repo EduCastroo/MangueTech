@@ -1,52 +1,47 @@
 package com.manguetech.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "postagem")
+@Table(name = "tb_postagens")
 public class Postagem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
-	@NotNull
+	
+	@NotNull(message = "O atributo título é obrigatório!")
+	@Size(min = 5, max = 100, message = "O atributo título deve ter no mínimo 5 e no máximo 100 caracteres")
 	private String titulo;
-
-	@NotNull
+	
+	@NotNull(message = "O atributo texto é obrigatório!")
+	@Size(min = 5, max = 1000, message = "O atributo textoo deve ter no mínimo 5 e no máximo 1000 caracteres")
 	private String texto;
-
-	@JsonFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dataPostagem = LocalDate.now();
-
-	private String midia;
-
-	private long curtida;
-
-	private long compartilhamento;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date data = new java.sql.Date(System.currentTimeMillis());
 
 	@ManyToOne
-	@JsonIgnoreProperties("minhasPostagens")
-	@JoinColumn(name = "fk_tema")
-	private Tema temaRelacionado;
-
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
+	
 	@ManyToOne
-	@JsonIgnoreProperties("minhasPostagens")
-	@JoinColumn(name = "fk_usuario")
-	private Usuario sponsor;
-
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+	
 	public long getId() {
 		return id;
 	}
@@ -71,52 +66,28 @@ public class Postagem {
 		this.texto = texto;
 	}
 
-	public LocalDate getDataPostagem() {
-		return dataPostagem;
+	public Date getData() {
+		return data;
 	}
 
-	public void setDataPostagem(LocalDate dataPostagem) {
-		this.dataPostagem = dataPostagem;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
-	public String getMidia() {
-		return midia;
+	public Tema getTema() {
+		return tema;
 	}
 
-	public void setMidia(String midia) {
-		this.midia = midia;
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 
-	public long getCurtida() {
-		return curtida;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setCurtida(long curtida) {
-		this.curtida = curtida;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-
-	public long getCompartilhamento() {
-		return compartilhamento;
-	}
-
-	public void setCompartilhamento(long compartilhamento) {
-		this.compartilhamento = compartilhamento;
-	}
-
-	public Tema getTemaRelacionado() {
-		return temaRelacionado;
-	}
-
-	public void setTemaRelacionado(Tema temaRelacionado) {
-		this.temaRelacionado = temaRelacionado;
-	}
-
-	public Usuario getSponsor() {
-		return sponsor;
-	}
-
-	public void setSponsor(Usuario sponsor) {
-		this.sponsor = sponsor;
-	}
-
+	
 }

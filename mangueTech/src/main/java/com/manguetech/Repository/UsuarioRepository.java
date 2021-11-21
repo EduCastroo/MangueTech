@@ -8,15 +8,17 @@ import org.springframework.stereotype.Repository;
 
 import com.manguetech.model.Usuario;
 
-	@Repository
-	public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-		public List<Usuario> findAllByNomeContainingIgnoreCase(String nome);
-		
-		public Optional<Usuario> findByEmail(String email);
-		
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-	
-	}
+	/** 
+	 * Método criado para checar se o usuário já existe no banco de dados
+	 */ 
+	public Optional<Usuario> findByUsuario(String usuario);
 
+	/** 
+	 * Método criado para a Sessão de testes
+	 */ 
+	public List<Usuario> findAllByNomeContainingIgnoreCase(String nome);
 
-	
+}
