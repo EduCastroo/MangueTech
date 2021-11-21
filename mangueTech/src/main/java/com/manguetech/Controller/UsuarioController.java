@@ -1,64 +1,108 @@
 package com.manguetech.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
-import javax.validation.Valid;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.manguetech.model.Postagem;
 
-import com.manguetech.Repository.UsuarioRepository;
-import com.manguetech.model.Usuario;
+//import io.swagger.annotations.ApiModelProperty;
 
-@RestController
-@RequestMapping("/usuario")
+@Entity
+@Table(name = "tb_usuarios")
 public class UsuarioController {
 
-	@Autowired
-	private UsuarioRepository repository;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
-	@GetMapping
-	public ResponseEntity<List<Usuario>> GetAll() {
-		return ResponseEntity.ok(repository.findAll());
-	}
+	@NotNull(message = "O atributo Nome é Obrigatório!")
+	private String nome;
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> GetById(@PathVariable long id) {
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
-	}
+	//@ApiModelProperty(example = "email@email.com.br")
+	@NotNull(message = "O atributo Usuário é Obrigatório!")
+	@Email(message = "O atributo Usuário deve ser um email!")
+	private String usuario;
 
-	@GetMapping("/email/{email}")
-	public ResponseEntity<Optional<Usuario>> GetByEmail(@PathVariable String email) {
-		return ResponseEntity.ok(repository.findByEmail(email));
-	}
+	@NotBlank(message = "O atributo Senha é Obrigatória!")
+	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
+	private String senha;
 	
-	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Usuario>> GetByNome(@PathVariable String nome) {
-		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("usuario")
+	private List<Postagem> postagem;
+
+	/**
+	 * Construtor com atributos da Classe Usuario
+	 * 
+	 *  *** Não adicionar o atributo postagem ***
+	 */
+	public UsuarioController(long id, String nome, String usuario, String senha) {
+		
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		
 	}
 
-	@PostMapping
-	public ResponseEntity<Usuario> post(@RequestBody @Valid Usuario usuario) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+	/**
+	 * Construtor sem atributos da Classe Usuario
+	 * 
+	 * Será utilizado para gerar Objetos Nulos
+	 */
+	public UsuarioController() { }
+	
+
+	public long getId() {
+		return id;
 	}
 
-	@PutMapping
-	public ResponseEntity<Usuario> put(@RequestBody Usuario usuario) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(usuario));
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);
+	public String getNome() {
+		return nome;
 	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public List<Postagem> getPostagem() {
+		return postagem;
+	}
+
+	public void setPostagem(List<Postagem> postagem) {
+		this.postagem = postagem;
+	}
+
 }
