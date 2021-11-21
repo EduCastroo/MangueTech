@@ -1,108 +1,66 @@
 package com.manguetech.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.manguetech.model.Postagem;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-//import io.swagger.annotations.ApiModelProperty;
+import com.manguetech.Repository.UsuarioRepository;
+import com.manguetech.model.Usuario;
+import com.manguetech.model.UsuarioLogin;
+import com.manguetech.service.UsuarioService;
 
-@Entity
-@Table(name = "tb_usuarios")
+
+@RestController
+@RequestMapping("/usuarios")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	@NotNull(message = "O atributo Nome é Obrigatório!")
-	private String nome;
-
-	//@ApiModelProperty(example = "email@email.com.br")
-	@NotNull(message = "O atributo Usuário é Obrigatório!")
-	@Email(message = "O atributo Usuário deve ser um email!")
-	private String usuario;
-
-	@NotBlank(message = "O atributo Senha é Obrigatória!")
-	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
-	private String senha;
+	@Autowired
+	private UsuarioService usuarioService;
 	
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("usuario")
-	private List<Postagem> postagem;
-
-	/**
-	 * Construtor com atributos da Classe Usuario
-	 * 
-	 *  *** Não adicionar o atributo postagem ***
-	 */
-	public UsuarioController(long id, String nome, String usuario, String senha) {
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@GetMapping("/all")
+	public ResponseEntity <List<Usuario>> getAll(){
 		
-		this.id = id;
-		this.nome = nome;
-		this.usuario = usuario;
-		this.senha = senha;
+		return ResponseEntity.ok(usuarioRepository.findAll());
 		
 	}
-
-	/**
-	 * Construtor sem atributos da Classe Usuario
-	 * 
-	 * Será utilizado para gerar Objetos Nulos
-	 */
-	public UsuarioController() { }
 	
-
-	public long getId() {
-		return id;
+	@PostMapping("/logar")
+	public ResponseEntity<UsuarioLogin> loginUsuario(@RequestBody Optional <UsuarioLogin> usuarioLogin){
+		
+		return usuarioService.autenticarUsuario(usuarioLogin)
+			.map(resp -> ResponseEntity.status(HttpStatus.OK).body(resp))
+			.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
-
-	public void setId(long id) {
-		this.id = id;
+	
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario){
+		
+		return usuarioService.cadastrarUsuario(usuario)
+			.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
+			.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public List<Postagem> getPostagem() {
-		return postagem;
-	}
-
-	public void setPostagem(List<Postagem> postagem) {
-		this.postagem = postagem;
+	
+	@PutMapping("/atualizar")
+	public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario){		
+		return usuarioService.atualizarUsuario(usuario)
+			.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
+			.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 
 }

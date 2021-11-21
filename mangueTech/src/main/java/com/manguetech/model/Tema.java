@@ -1,6 +1,5 @@
 package com.manguetech.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,64 +14,44 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "tema")
-public class Tema {
+@Table(name = "tb_temas")
+public class Tema{
+	    
+	    @Id	
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private long id;
+		
+		@NotNull(message = "O atributo Descrição deve ser obrigatório")
+		private String descricao;
+		
+		@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL)
+		@JsonIgnoreProperties("tema")
+		private List<Postagem> postagem;
+		
+		
+		public long getId() {
+			return id;
+		}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+		public void setId(long id) {
+			this.id = id;
+		}
 
-	@NotNull
-	private String descricao;
+		public String getDescricao() {
+			return descricao;
+		}
 
-	@NotNull
-	private long quantidadePostagens;
+		public void setDescricao(String descricao) {
+			this.descricao = descricao;
+		}
 
-	@NotNull
-	private boolean tendenciaSemana;
+		public List<Postagem> getPostagem() {
+			return postagem;
+		}
 
-	@OneToMany(mappedBy = "temaRelacionado", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("temaRelacionado")
-	private List<Postagem> postagens = new ArrayList<>();
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public long getQuantidadePostagens() {
-		return quantidadePostagens;
-	}
-
-	public void setQuantidadePostagens(long quantidadePostagens) {
-		this.quantidadePostagens = quantidadePostagens;
-	}
-
-	public boolean isTendenciaSemana() {
-		return tendenciaSemana;
-	}
-
-	public void setTendenciaSemana(boolean tendenciaSemana) {
-		this.tendenciaSemana = tendenciaSemana;
-	}
-
-	public List<Postagem> getPostagens() {
-		return postagens;
-	}
-
-	public void setPostagens(List<Postagem> postagens) {
-		this.postagens = postagens;
-	}
-
+		public void setPostagem(List<Postagem> postagem) {
+			this.postagem = postagem;
+		}
+		
+		
 }
