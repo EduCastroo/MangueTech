@@ -2,6 +2,7 @@ package com.manguetech.Controller;
 
 import java.util.List;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,3 +57,4 @@ public class PostagemController {
 		repository.deleteById(id);
 	}
 }
+
