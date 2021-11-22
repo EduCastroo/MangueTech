@@ -32,7 +32,7 @@ public class Usuario {
 	private String nome;
 
 	@ApiModelProperty(example = "email@email.com.br")
-	@NotNull(message = "O atributo Usuário é Obrigatório!")
+	@NotBlank(message = "O atributo Usuário é Obrigatório!")
 	@Email(message = "O atributo Usuário deve ser um email!")
 	private String usuario;
 
