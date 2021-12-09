@@ -40,7 +40,8 @@ public class UsuarioControllerTest {
 	public void deveCriarUmUsuario() {
 
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L, 
-			"Paulo Antunes", "paulo_antunes@email.com.br", "13465278"));
+				"Paulo Antunes", "paulo_antunes@email.com.br","foto", "13465278", "tipo"
+));
 
 		ResponseEntity<Usuario> resposta = testRestTemplate
 			.exchange("/usuarios/cadastrar", HttpMethod.POST, requisicao, Usuario.class);
@@ -56,10 +57,10 @@ public class UsuarioControllerTest {
 	public void naoDeveDuplicarUsuario() {
 
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Maria da Silva", "maria_silva@email.com.br", "13465278"));
+			"Maria da Silva", "maria_silva@email.com.br", "13465278", "", ""));
 
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L, 
-			"Maria da Silva", "maria_silva@email.com.br", "13465278"));
+			"Maria da Silva", "maria_silva@email.com.br", "13465278", "", ""));
 
 		ResponseEntity<Usuario> resposta = testRestTemplate
 			.exchange("/usuarios/cadastrar", HttpMethod.POST, requisicao, Usuario.class);
@@ -73,10 +74,10 @@ public class UsuarioControllerTest {
 	public void deveAtualizarUmUsuario() {
 
 		Optional<Usuario> usuarioCreate = usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Juliana Andrews", "juliana_andrews@email.com.br", "juliana123"));
+			"Juliana Andrews", "juliana_andrews@email.com.br", "13465278", "", ""));
 
 		Usuario usuarioUpdate = new Usuario(usuarioCreate.get().getId(), 
-			"Juliana Andrews Ramos", "juliana_ramos@email.com.br", "juliana123");
+			"Juliana Andrews Ramos", "juliana_ramos@email.com.br", "13465278", "", "");
 		
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(usuarioUpdate);
 
@@ -95,10 +96,10 @@ public class UsuarioControllerTest {
 	public void deveMostrarTodosUsuarios() {
 
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Sabrina Sanches", "sabrina_sanches@email.com.br", "sabrina123"));
+			"Sabrina Sanches", "sabrina_sanches@email.com.br", "13465278", "", ""));
 		
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Ricardo Marques", "ricardo_marques@email.com.br", "ricardo123"));
+			"Ricardo Marques", "ricardo_marques@email.com.br", "13465278", "", ""));
 
 		ResponseEntity<String> resposta = testRestTemplate
 			.withBasicAuth("root", "root")
