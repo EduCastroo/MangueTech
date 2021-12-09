@@ -35,10 +35,14 @@ public class Usuario {
 	@NotBlank(message = "O atributo Usuário é Obrigatório!")
 	@Email(message = "O atributo Usuário deve ser um email!")
 	private String usuario;
+	
+	private String foto;
 
 	@NotBlank(message = "O atributo Senha é Obrigatória!")
 	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
 	private String senha;
+	
+	private String tipo;
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
@@ -49,12 +53,14 @@ public class Usuario {
 	 * 
 	 *  *** Não adicionar o atributo postagem ***
 	 */
-	public Usuario(long id, String nome, String usuario, String senha) {
+	public Usuario(long id, String nome, String usuario, String foto, String senha, String tipo) {
 		
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
+		this.foto = foto;
 		this.senha = senha;
+		this.tipo = tipo;
 		
 	}
 
@@ -106,4 +112,21 @@ public class Usuario {
 		this.postagem = postagem;
 	}
 
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	
 }
