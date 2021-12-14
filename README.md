@@ -9,7 +9,8 @@ It is a web application planned by me, where I perform the CRUD
 
 ### Some fields in main Model is:
 
-<p align="justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id totam voluptatem saepe eius ipsum nam provident sapiente, natus et vel eligendi laboriosam odit eos temporibus impedit veritatis ut, illo deserunt illum voluptate quis beatae quod. Necessitatibus provident dicta consectetur labore!</p>
+<p align="justify">O lixo eletrônico tem se mostrado um problema grave e crescente para o meio ambiente e para a saúde humana. Nossa proposta é a redução do descarte incorreto desse e-lixo, ou Resíduos de Equipamentos Elétricos e Eletrônicos (REEE).
+Fazendo valer a prática da moeda social, cuja finalidade se destina a transações econômicas com um determinado fim, trazendo geração e renda e educação no regresso útil desses materiais à sociedade destinados à educação em áreas periféricas da RMR do Recife.</p>
 </div>
 Also that, has a User with this fields:
 
