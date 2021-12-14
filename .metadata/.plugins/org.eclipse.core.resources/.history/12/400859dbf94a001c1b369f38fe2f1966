@@ -1,0 +1,5 @@
+package com.manguetech.Repository;
+
+public class UsuarioRepositoryTest {
+
+}
