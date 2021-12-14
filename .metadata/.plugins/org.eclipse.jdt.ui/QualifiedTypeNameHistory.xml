@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonFormat"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="javax.validation.constraints.Email"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
+    <fullyQualifiedTypeName name="javax.persistence.CascadeType"/>
+    <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
+    <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnoreProperties"/>
+    <fullyQualifiedTypeName name="javax.persistence.JoinColumn"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="org.junit.jupiter.api.BeforeAll"/>
+    <fullyQualifiedTypeName name="org.springframework.boot.test.context.SpringBootTest"/>
+    <fullyQualifiedTypeName name="org.junit.jupiter.api.TestInstance"/>
+    <fullyQualifiedTypeName name="org.junit.jupiter.api.Test"/>
+    <fullyQualifiedTypeName name="org.junit.jupiter.api.DisplayName"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.manguetech.Repository.PostagemRepository"/>
+    <fullyQualifiedTypeName name="com.manguetech.Repository.TemaRepository"/>
+    <fullyQualifiedTypeName name="com.manguetech.service.UsuarioService"/>
+    <fullyQualifiedTypeName name="com.manguetech.model.Tema"/>
+    <fullyQualifiedTypeName name="com.manguetech.model.Postagem"/>
+    <fullyQualifiedTypeName name="com.manguetech.Repository.UsuarioRepository"/>
+    <fullyQualifiedTypeName name="com.manguetech.model.Usuario"/>
+    <fullyQualifiedTypeName name="com.manguetech.model.UsuarioLogin"/>
+</qualifiedTypeNameHistroy>
