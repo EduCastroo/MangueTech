@@ -5,7 +5,7 @@
 <p align="center">Projeto Integrador Generation Brazil</p>
 
 <div align="center">
-It is a web application planned by me, where I perform the CRUD
+It is a web application planned by us, do we perform the CRUD
 
 ### Some fields in main Model is:
 
